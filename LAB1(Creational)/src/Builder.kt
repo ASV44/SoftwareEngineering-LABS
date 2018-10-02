@@ -1,3 +1,5 @@
+import java.io.File
+
 class Dialog() {
 
     fun showTitle() = println("showing title")
