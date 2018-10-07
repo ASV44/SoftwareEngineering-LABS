@@ -12,11 +12,14 @@ open class Plant(var name: String = "",
 
     fun showFamily() = println("Plant family: $family")
 
+    fun showOrder() = println("Plant order: $order")
+
     fun showPlantDetails() {
         showName()
         showSpecies()
         showGenus()
         showFamily()
+        showOrder()
     }
 
     //Builder:
