@@ -1,3 +1,5 @@
+package mediator
+
 class ChatUser(val mediator: ChatMediator, val name: String){
     fun send(msg: String) {
         println("${name}: Sending Message= ${msg}")

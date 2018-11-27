@@ -1,3 +1,5 @@
+package memento
+
 class Originator(var state: String) {
 
     fun createMemento(): Memento {

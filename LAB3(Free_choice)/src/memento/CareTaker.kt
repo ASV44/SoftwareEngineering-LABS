@@ -1,3 +1,5 @@
+package memento
+
 class CareTaker {
     private val mementoList = ArrayList<Memento>()
 

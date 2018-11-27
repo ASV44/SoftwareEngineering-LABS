@@ -1,3 +1,5 @@
+package mediator
+
 class ChatMediator {
     private val users: MutableList<ChatUser> = ArrayList()
 
