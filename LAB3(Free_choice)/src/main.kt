@@ -1,3 +1,5 @@
+import decorator.EnhancedCoffeeMachine
+import decorator.NormalCoffeeMachine
 import mediator.ChatMediator
 import mediator.ChatUser
 import memento.CareTaker
@@ -37,4 +39,14 @@ fun main() {
     println("Second saved State: " + originator.state)
     originator.restore(careTaker.restore(2))
     println("Second saved State: " + originator.state)
+
+    val normalMachine = NormalCoffeeMachine()
+    val enhancedMachine = EnhancedCoffeeMachine(normalMachine)
+
+    // non-overridden behaviour
+    enhancedMachine.makeSmallCoffee()
+    // overriding behaviour
+    enhancedMachine.makeLargeCoffee()
+    // extended behaviour
+    enhancedMachine.makeCoffeeWithMilk()
 }
