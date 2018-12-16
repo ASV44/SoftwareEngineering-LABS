@@ -1,3 +1,6 @@
+import command.CommandProcessor
+import command.OrderAddCommand
+import command.OrderPayCommand
 import decorator.EnhancedCoffeeMachine
 import decorator.NormalCoffeeMachine
 import mediator.ChatMediator
@@ -49,4 +52,11 @@ fun main() {
     enhancedMachine.makeLargeCoffee()
     // extended behaviour
     enhancedMachine.makeCoffeeWithMilk()
+
+    CommandProcessor()
+        .addToQueue(OrderAddCommand(1L))
+        .addToQueue(OrderAddCommand(2L))
+        .addToQueue(OrderPayCommand(2L))
+        .addToQueue(OrderPayCommand(1L))
+        .processCommands()
 }
