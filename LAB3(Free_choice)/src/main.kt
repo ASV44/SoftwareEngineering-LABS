@@ -1,6 +1,7 @@
 import command.CommandProcessor
-import command.OrderAddCommand
-import command.OrderPayCommand
+import command.OrderNormalCoffee
+import command.OrderDrinkCoffee
+import command.OrderEnhacedCoffee
 import decorator.EnhancedCoffeeMachine
 import decorator.NormalCoffeeMachine
 import mediator.ChatMediator
@@ -42,17 +43,10 @@ fun main() {
     val normalMachine = NormalCoffeeMachine()
     val enhancedMachine = EnhancedCoffeeMachine(normalMachine)
 
-    // non-overridden behaviour
-    enhancedMachine.makeSmallCoffee()
-    // overriding behaviour
-    enhancedMachine.makeLargeCoffee()
-    // extended behaviour
-    enhancedMachine.makeCoffeeWithMilk()
-
     CommandProcessor()
-        .addToQueue(OrderAddCommand(1L))
-        .addToQueue(OrderAddCommand(2L))
-        .addToQueue(OrderPayCommand(2L))
-        .addToQueue(OrderPayCommand(1L))
+        .addToQueue(OrderNormalCoffee(normalMachine))
+        .addToQueue(OrderEnhacedCoffee(enhancedMachine))
+        .addToQueue(OrderDrinkCoffee(john))
+        .addToQueue(OrderDrinkCoffee(mary))
         .processCommands()
 }

@@ -5,7 +5,7 @@ import memento.Originator
 import User
 import memento.CareTaker
 
-class ChatUser(val mediator: ChatMediator, careTaker: CareTaker, val name: String): Originator(careTaker), User {
+class ChatUser(val mediator: ChatMediator, careTaker: CareTaker, override val name: String): Originator(careTaker), User {
 
     private var memento: Memento
         get() = createMemento()
@@ -31,5 +31,9 @@ class ChatUser(val mediator: ChatMediator, careTaker: CareTaker, val name: Strin
 
     fun saveState() {
         careTaker.saveState(this, memento)
+    }
+
+    override fun drinkCoffee() {
+        println("${name} drinks coffee")
     }
 }
