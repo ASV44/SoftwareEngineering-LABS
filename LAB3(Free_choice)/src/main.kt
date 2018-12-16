@@ -6,42 +6,38 @@ import decorator.NormalCoffeeMachine
 import mediator.ChatMediator
 import mediator.ChatUser
 import memento.CareTaker
-import memento.Originator
 
 fun main() {
+    val careTaker = CareTaker()
+
     val mediator = ChatMediator()
-    val john = ChatUser(mediator, "John")
+
+    val john = ChatUser(mediator, careTaker, "John")
+    val mary = ChatUser(mediator, careTaker, "Mary")
 
     with(mediator) {
-        addUser(ChatUser(this, "User1"))
-        addUser(ChatUser(this, "User2"))
-        addUser(ChatUser(this, "User3"))
         addUser(john)
+        addUser(mary)
     }
 
     john.send("Hi everyone!")
+    mary.send("Hi John!")
+    john.saveState()
 
+    john.send("New message #1")
+    john.send("New message #2")
+    mary.send("New message #1")
+    john.saveState()
+    mary.saveState()
 
-    val originator = Originator("initial state")
-    val careTaker = CareTaker()
-    careTaker.saveState(originator.createMemento())
+    mary.send("New message #2")
+    mary.send("New message #3")
+    mary.saveState()
 
-    originator.state = "State #1"
-    originator.state = "State #2"
-    careTaker.saveState(originator.createMemento())
-
-    originator.state = "State #3"
-    careTaker.saveState(originator.createMemento())
-
-    originator.state = "State #4"
-    println("Current State: " + originator.state)
-
-    originator.restore(careTaker.restore(0))
-    println("First saved State: " + originator.state)
-    originator.restore(careTaker.restore(1))
-    println("Second saved State: " + originator.state)
-    originator.restore(careTaker.restore(2))
-    println("Second saved State: " + originator.state)
+    john.restore(0)
+    john.restore(1)
+    mary.restore(0)
+    mary.restore(1)
 
     val normalMachine = NormalCoffeeMachine()
     val enhancedMachine = EnhancedCoffeeMachine(normalMachine)

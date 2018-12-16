@@ -1,13 +1,18 @@
 package memento
 
-class CareTaker {
-    private val mementoList = ArrayList<Memento>()
+import User
 
-    fun saveState(state: Memento) {
-        mementoList.add(state)
+class CareTaker {
+    private val mementoCollection = HashMap<User, ArrayList<Memento>>()
+
+    fun saveState(user: User, state: Memento) {
+        if (!mementoCollection.containsKey(user)) {
+            mementoCollection[user] = ArrayList()
+        }
+        mementoCollection[user]!!.add(state)
     }
 
-    fun restore(index: Int): Memento {
-        return mementoList[index]
+    fun restore(user: User, index: Int): Memento {
+        return mementoCollection[user]!![index]
     }
 }
